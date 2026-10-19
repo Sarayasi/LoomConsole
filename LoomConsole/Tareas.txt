@@ -1,0 +1,41 @@
+Opción B — Formato "XML-lite" (tipo HTML simplificado)
+          Cada nodo tiene apertura y cierre. Los atributos van en la apertura.
+
+          xml
+          <Vertical gap="1">
+            <Label text="LOOM" align="center" />
+            <Grid cols="2" gapX="4" gapY="1">
+              <Label text="HP  100" />
+              <Label text="MP   50" />
+              <Label text="ATK  12" />
+              <Label text="DEF   8" />
+            </Grid>
+          </Vertical>
+          Ventajas:
+
+          Jerarquía explícita (apertura/cierre). No dependes de indentación.
+
+          Anidamiento inline posible: <Borde><Vertical>...</Vertical></Borde>.
+
+          Atributos con comillas → valores con espacios sin problema.
+
+          Es casi HTML, así que la gente lo lee sin manual.
+
+          Fácil de parsear con un tokenizador simple (no necesitas un parser XML completo).
+
+          Desventajas:
+
+          Más verboso que YAML (cierres </...>).
+
+          Necesitas manejar auto-cierre (<Label ... />) y cierre explícito (</Vertical>).
+
+          Si te equivocas en un cierre, el error es más difícil de diagnosticar.
+
+          Coste de parseo: ~50-100 líneas de código para un parser decente. En ESP32-C3, ~2-5 KB de .text. Asumible.
+
+INPUT MOUSE
+
+INPUT KEYBOARD( con focus)
+
+Ventanas drageables
+
