@@ -51,6 +51,7 @@ public class ListaGrid : Lista
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (hijos.Count == 0 || columnas <= 0 || rect.w <= 0 || rect.h <= 0) return;
 
         int colW = (rect.w - sepX * (columnas - 1)) / columnas;

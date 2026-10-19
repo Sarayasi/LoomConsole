@@ -25,6 +25,7 @@ public class ListaVertical : Lista
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (hijos.Count == 0 || rect.w <= 0 || rect.h <= 0) return;
 
         // 1) medir cada hijo con el ancho disponible

@@ -19,6 +19,7 @@ public class GraficoLinea : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (datos.Length == 0 || rect.w <= 0 || rect.h <= 0) return;
 
         int x0 = rect.x, y0 = rect.y;

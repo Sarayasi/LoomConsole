@@ -1,58 +1,44 @@
-
-using System.Runtime.CompilerServices;
-
 public abstract class Component
 {
+    public bool alive = true;
     public Component hijo;
+    bool primerframe;
 
-    public abstract void Draw(Rect rect, Canvas canvas);
+    public virtual void Init() { }
+    public virtual void Destroy() { alive = false; }
+    public virtual void Update() { }
 
-    // Devuelve el tamaño que este componente *desea* dentro de (maxW, maxH).
+    public virtual void Draw(Rect rect, Canvas canvas)
+    {
+        if (!primerframe) { Start(); primerframe = true; }
+    }
+
+    public virtual void Start() { }
+
+    // Tamaño deseado dentro de (maxW, maxH)
     public virtual (int w, int h) Measure(int maxW, int maxH) => (maxW, maxH);
 
-    public Label Label(string texto, int tamaño = 0)
-    {
-        var esp = new Label() { content = texto, tamaño = tamaño };
-        hijo = esp;
-        return esp;
-    }
-    public virtual Component AddChild(Component esp)
-    {
-        hijo = esp;
-        return esp;
-    }
-    public Espaciado Espacio((float top, float botom, float left, float rigth) rect)
-    {
-        var esp = new Espaciado { padding = rect };
-        hijo = esp;
-        return esp;
-    }
-    public Espaciado Espacio(float rect)
-    {
-        var esp = new Espaciado { padding = (rect, rect, rect, rect) };
-        hijo = esp;
-        return esp;
-    }
+    // --- builders encadenables (todos asignan hijo y devuelven el nuevo) ---
 
-    public Borde Borde(Borde.Tipo tipo = global::Borde.Tipo.simple)
-    {
-        var b = new Borde { tipo = tipo };
-        hijo = b;
-        return b;
-    }
-    
-    public Component AligmentVertical(sbyte aligment)
-    {
-        var a = new AligmentVertical { aligment = aligment };
-        hijo = a;
-        return a;
-    }
+    Component Chain<T>(T c) where T : Component { hijo = c; return c; }
 
-    public Component AligmentHorizontal(sbyte aligment)
-    {
-        var a = new AligmentHorizontal { aligment = aligment };
-        hijo = a;
-        return a;
-    }
+    public Label Label(string texto, int tamaño = 0) =>
+        (Label)Chain(new Label { content = texto, tamaño = tamaño });
 
+    public virtual Component AddChild(Component esp) => Chain(esp);
+
+    public virtual Espaciado Espacio((float top, float botom, float left, float rigth) r) =>
+        (Espaciado)Chain(new Espaciado { espacio = r });
+
+    public virtual Espaciado Espacio(float r) =>
+        (Espaciado)Chain(new Espaciado { espacio = (r, r, r, r) });
+
+    public Borde Borde(Borde.Tipo tipo = global::Borde.Tipo.simple,int grosor = 1) =>
+        (Borde)Chain(new Borde { tipo = tipo ,grosor = grosor});
+
+    public Component AligmentVertical(sbyte a) =>
+        Chain(new AligmentVertical { aligment = a });
+
+    public Component AligmentHorizontal(sbyte a) =>
+        Chain(new AligmentHorizontal { aligment = a });
 }

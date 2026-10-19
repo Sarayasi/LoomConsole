@@ -110,6 +110,7 @@ public class SpriteAnimado : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         int f = FrameActual;
         if (f < 0 || f >= frames.Length || frames[f] == null) return;
 

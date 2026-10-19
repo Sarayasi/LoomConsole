@@ -19,6 +19,7 @@ public class Barra : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (rect.w <= 0 || rect.h <= 0) return;
 
         int borde = mostrarBorde ? 1 : 0;

@@ -107,6 +107,7 @@ public class Tabla : Component
     // ── Draw ───────────────────────────────────────────────
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (rect.w <= 0 || rect.h <= 0) return;
         if (cabeceras.Length == 0 && filas.Length == 0) return;
 

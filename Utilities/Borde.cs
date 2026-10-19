@@ -18,6 +18,7 @@ public class Borde : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect, canvas);
         if (rect.w <= 0 || rect.h <= 0) return;
 
         int g = Math.Max(1, grosor); // seguridad mínima
@@ -69,12 +70,30 @@ public class Borde : Component
         int ih = rect.h - 2 * g;
         if (iw <= 0 || ih <= 0) return;
 
-        var inner = new Rect {
+        var inner = new Rect
+        {
             x = rect.x + g,
             y = rect.y + g,
             w = iw,
             h = ih
         };
         hijo.Draw(inner, canvas);
+    }
+}
+
+
+public class Zigzag : Component{
+    public override void Draw(Rect rect, Canvas canvas)
+    {
+        if (rect.w <= 0 || rect.h <= 0) return;
+        // Recorremos el rect en bloques de cw x ch
+        for (int y = rect.y; y < rect.y + rect.h; y ++)
+        {
+            for (int x = rect.x; x < rect.x + rect.w; x ++)
+            {
+                bool on = (y+x) % 2 == 0;
+                if (on) canvas.info[canvas.w * y + x] = true;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ public class AligmentHorizontal : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (hijo == null) return;
 
         var (cw, ch) = hijo.Measure(rect.w, rect.h);

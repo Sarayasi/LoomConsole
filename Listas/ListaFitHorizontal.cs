@@ -18,6 +18,7 @@ public class ListaFitHorizontal : ListaFit
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (hijos.Count == 0 || rect.w <= 0 || rect.h <= 0) return;
 
         int n = hijos.Count;

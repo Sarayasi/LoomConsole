@@ -53,6 +53,7 @@ public class Label : Component
 
     public override void Draw(Rect rect, Canvas canvas)
     {
+        base.Draw(rect,canvas);
         if (string.IsNullOrEmpty(content) || rect.w <= 0 || rect.h <= 0) return;
 
         var (textW, textH) = TextSize(content);
